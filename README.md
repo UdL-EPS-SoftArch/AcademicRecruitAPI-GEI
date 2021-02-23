@@ -4,25 +4,25 @@
 
 ## Vision
 
-**For** ... **who** ...
+**For** people **who** want to apply for a job at UDL and the selection committee.
 
-**the project** AcademicRecruit **is a** ...,
+**the project** AcademicRecruit **is a** webapp created with Spring and Angular.
 
-**that** ...
+**that** allows them to check the process state.
 
-**Unlike** existing tools, AcademicRecruit ...
+**Unlike** existing tools, AcademicRecruit allows you to apply for a job virtually instead of in person.
 
 
 ## Features per Stakeholder
 
-|       Stakeholder 1             |       Stakeholder 2             |   Administrator   |
-| --------------------------------| --------------------------------|-------------------|
-|                                 |                                 |  Register User    |                             
-|                                 |                                 |                   |                                 
-|                                 |                                 |                   |                               
-|                                 |                                 |                   |                                
-|                                 |                                 |                   |             
-|                                 |                                 |                   |               
+|           Applicant             |            Commite              |       Administrator         |
+| --------------------------------| --------------------------------|--------------------------   |
+|            Register             |     Check the process state     | Create a process selection  |                             
+|        View/Edit profile        |       Assign a puntuation       |Assign a commite to a process|                                 
+|     Sign up for a job apply     |Establish the evaluation cryteria|                             |                               
+|     Check the process state     |   Check the candidates profile  |                             |                                
+|                                 |   Establish 2nd phase calendar  |                             |             
+|                                 |                                 |                             |               
 
 
 ## Entities Model
