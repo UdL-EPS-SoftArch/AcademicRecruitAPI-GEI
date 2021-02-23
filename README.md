@@ -4,11 +4,11 @@
 
 ## Vision
 
-**For** ... **who** ...
+**For** people **who** want to apply for a job at UDL and the selection committee.
 
-**the project** AcademicRecruit **is a** ...,
+**the project** AcademicRecruit **is a** webapp created with Spring and Angular.
 
-**that** ...
+**that** allows them to check the process state.
 
 **Unlike** existing tools, AcademicRecruit ...
 
