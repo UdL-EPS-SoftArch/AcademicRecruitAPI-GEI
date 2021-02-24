@@ -1,0 +1,80 @@
+@startuml
+skinparam dpi 200
+skinparam classAttributeFontSize 8
+skinparam classArrowFontSize 9
+skinparam classFontSize 10
+skinparam nodesep 90
+skinparam ranksep 40
+hide stereotype
+
+skinparam class {
+	BackgroundColor White
+	BackgroundColor<<User>> LightBlue
+}
+skinparam shadowing false
+
+skinparam package<<Layout>> {
+  borderColor Transparent
+  backgroundColor Transparent
+  fontColor Transparent
+  stereotypeFontColor Transparent
+}
+
+
+package Users <<Layout>>{
+    class Applicant <<User>> {
+        username : String
+        password : String
+        email : String
+        name : String
+        lastname : String
+        DNI : String
+    }
+
+    class Comitee <<User>> {
+        username : String
+        password : String
+        email : String
+        name : String
+        lastname : String
+        DNI : String
+        deparment : String
+    }
+
+    class Admin<<User>> {
+        username : String
+        password : String
+        email : String
+    }
+}
+class ComiteeGroup <<ComiteeGroup>> {
+    id : Integer
+    secretary : Comitee
+    president : Comitee
+
+}
+class Aplication <<Aplication>> {
+    id : Integer
+    numbers: List <Integer>
+}
+class Document <<Document>> {
+    document: string
+    status: int
+}
+class AplicationNote <<AplicationNote>> {
+    note: 
+class UserAplication <<UserAplication>> {
+    id : Integer
+    createdAt : Date
+    status : int
+    
+}
+
+ComiteeGroup "0..*" -- "1..*" Comitee : Belongs <
+ComiteeGroup "1" -- "1" Aplication : Controls >
+Applicant "1" -- "*" UserAplication : Creates >
+UserAplication "*" -- "1" Aplication : Is Sent >
+Document "*" -- "1" Aplication : Belongs >
+Admin "1" -- "*" ComiteeGroup : Created >
+Admin "1" --> "*" Aplication : Created >
+@enduml
