@@ -4,25 +4,28 @@
 
 ## Vision
 
-**For** ... **who** ...
+**For** people **who** are members of a committee.
 
-**the project** AcademicRecruit **is a** ...,
+**the project** AcademicRecruit **is a** webapp created with Spring and Angular.
 
-**that** ...
+**that** allows them manage the process state with the other members of the committee group.
 
-**Unlike** existing tools, AcademicRecruit ...
+**Unlike** existing tools, AcademicRecruit allows to manage many candidatures virtually.
 
 
 ## Features per Stakeholder
 
-|       Stakeholder 1             |       Stakeholder 2             |   Administrator   |
-| --------------------------------| --------------------------------|-------------------|
-|                                 |                                 |  Register User    |                             
-|                                 |                                 |                   |                                 
-|                                 |                                 |                   |                               
-|                                 |                                 |                   |                                
-|                                 |                                 |                   |             
-|                                 |                                 |                   |               
+|             Committee           |                 Secretary                 |
+| --------------------------------| ------------------------------------------|
+|View applications that he belongs|Create a new application                   | 
+|Evaluate the applicants          |Assign members to a application committee  |
+|Sign application documents       |Assign applicants to a application         |
+|                                 |Push documents to a application            |
+|                                 |Review the committee memebres evaluations  |
+|                                 |Set the evaluation criteria                |
+|                                 |Set the second phase date                  |
+|                                 |Set the current application status         |
+
 
 
 ## Entities Model
