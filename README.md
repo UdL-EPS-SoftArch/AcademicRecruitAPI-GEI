@@ -4,25 +4,25 @@
 
 ## Vision
 
-**For** people **who** want to apply for a job at UDL and the selection committee.
+**For** people **who** are members of a committee.
 
 **the project** AcademicRecruit **is a** webapp created with Spring and Angular.
 
-**that** allows them to check the process state.
+**that** allows them manage the process state with the other members of the committee group.
 
-**Unlike** existing tools, AcademicRecruit allows you to apply for a job virtually instead of in person.
+**Unlike** existing tools, AcademicRecruit allows to manage many candidatures virtually.
 
 
 ## Features per Stakeholder
 
-|           Applicant             |            Commite              |       Administrator         |
-| --------------------------------| --------------------------------|--------------------------   |
-|            Register             |     Check the process state     | Create a process selection  |                             
-|        View/Edit profile        |       Assign a puntuation       |Assign a commite to a process|                                 
-|     Sign up for a job apply     |Establish the evaluation cryteria|                             |                               
-|     Check the process state     |   Check the candidates profile  |                             |                                
-|                                 |   Establish 2nd phase calendar  |                             |             
-|                                 |                                 |                             |               
+|             Committee           |                 Secretary                 |
+| --------------------------------| ------------------------------------------|
+|View applications that he belongs|Create a new application                   | 
+|Evaluate the applicants          |Assign members to a application committee  |        
+|Sign application documents       |Push documents to a application            |
+|                                 |Review the committee memebres evaluations  |
+|                                 |Set the evaluation criteria                |
+|                                 |Set the second phase date                  |
 
 
 ## Entities Model
