@@ -18,11 +18,14 @@
 |             Committee           |                 Secretary                 |
 | --------------------------------| ------------------------------------------|
 |View applications that he belongs|Create a new application                   | 
-|Evaluate the applicants          |Assign members to a application committee  |        
-|Sign application documents       |Push documents to a application            |
+|Evaluate the applicants          |Assign members to a application committee  |
+|Sign application documents       |Assign applicants to a application         |
+|                                 |Push documents to a application            |
 |                                 |Review the committee memebres evaluations  |
 |                                 |Set the evaluation criteria                |
 |                                 |Set the second phase date                  |
+|                                 |Set the current application status         |
+
 
 
 ## Entities Model
