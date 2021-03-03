@@ -8,33 +8,45 @@ class User{
         DNI : String
 }
 class Comitee{
+  rank: Enumerable
 }
 
-class Secretary {
-}
-
-class President {
-}
 
 
 class JobApplication {
+name: String
+description: String
+requirements: List<String>
+evaluationCriteria: List<String>
+currentPhase: Phase
 }
 
 class Phase {
+phaseNumber: int
+name: String
+initialDate: DateTime
+finalDate: DateTime
 }
 class Applicants {
+        email : String
+        name : String
+        lastname : String
+        DNI : String
 }
 class Qualifications {
+mark: int
+observation: String
 }
 class Document {
+name: String
+path: String
 }
 
-User "5" --> "*" Comitee:Belongs >
+User "1" --> "*" Comitee:Belongs >
 
 Qualifications "*" -- "1" Comitee:Evaluate <
 
-Comitee "1" -- "1" JobApplication:Administrates >
-Comitee <|-- (Secretary, President)
+Comitee "5" -- "1" JobApplication:Administrates >
 
 Document "*" --> "*" Phase:Have <
 JobApplication "1" o-- "3" Phase:Have > 
