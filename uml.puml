@@ -1,80 +1,57 @@
 @startuml
-skinparam dpi 200
-skinparam classAttributeFontSize 8
-skinparam classArrowFontSize 9
-skinparam classFontSize 10
-skinparam nodesep 90
-skinparam ranksep 40
-hide stereotype
-
-skinparam class {
-	BackgroundColor White
-	BackgroundColor<<User>> LightBlue
-}
-skinparam shadowing false
-
-skinparam package<<Layout>> {
-  borderColor Transparent
-  backgroundColor Transparent
-  fontColor Transparent
-  stereotypeFontColor Transparent
-}
-
-
-package Users <<Layout>>{
-    class Applicant <<User>> {
+class User{
         username : String
         password : String
         email : String
         name : String
         lastname : String
         DNI : String
-    }
+}
+class Comitee{
+  rank: Enumerable
+}
 
-    class Comitee <<User>> {
-        username : String
-        password : String
+
+
+class JobApplication {
+name: String
+description: String
+requirements: List<String>
+evaluationCriteria: List<String>
+currentPhase: Phase
+}
+
+class Phase {
+phaseNumber: int
+name: String
+initialDate: DateTime
+finalDate: DateTime
+}
+class Applicants {
         email : String
         name : String
         lastname : String
         DNI : String
-        deparment : String
-    }
-
-    class Admin<<User>> {
-        username : String
-        password : String
-        email : String
-    }
 }
-class ComiteeGroup <<ComiteeGroup>> {
-    id : Integer
-    secretary : Comitee
-    president : Comitee
-
+class Qualifications {
+mark: int
+observation: String
 }
-class Aplication <<Aplication>> {
-    id : Integer
-    numbers: List <Integer>
-}
-class Document <<Document>> {
-    document: string
-    status: int
-}
-class AplicationNote <<AplicationNote>> {
-    note: 
-class UserAplication <<UserAplication>> {
-    id : Integer
-    createdAt : Date
-    status : int
-    
+class Document {
+name: String
+path: String
 }
 
-ComiteeGroup "0..*" -- "1..*" Comitee : Belongs <
-ComiteeGroup "1" -- "1" Aplication : Controls >
-Applicant "1" -- "*" UserAplication : Creates >
-UserAplication "*" -- "1" Aplication : Is Sent >
-Document "*" -- "1" Aplication : Belongs >
-Admin "1" -- "*" ComiteeGroup : Created >
-Admin "1" --> "*" Aplication : Created >
+User "1" --> "*" Comitee:Belongs >
+
+Qualifications "*" -- "1" Comitee:Evaluate <
+
+Comitee "5" -- "1" JobApplication:Administrates >
+
+Document "*" --> "*" Phase:Have <
+JobApplication "1" o-- "3" Phase:Have > 
+
+JobApplication "1" o-- "*" Applicants:Have >
+Qualifications "5" -- "1" Applicants:Evaluated by < 
+Document "*" --> "0..1" Applicants:Belongs >
 @enduml
