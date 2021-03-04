@@ -61,4 +61,5 @@ public class JobApplication {
     public String getId() {
         return id;
     }
+
 }
