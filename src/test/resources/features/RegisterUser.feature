@@ -87,14 +87,14 @@ Feature: Register User
     Given I login as "admin" with password "password"
     When I register a new user with username "newuser" , email "newuser@sample.app" , password "password" , name "name" , lastname "lastname" and dni "123456789A"
     Then The response code is 400
-    And The error message is "dni length must be 9"
+    And The error message is "length must be between 9 and 9"
     And It has not been created a user with username "newuser"
 
   Scenario: Register user with invalid dni shorter than 9 characters
     Given I login as "admin" with password "password"
     When I register a new user with username "newuser" , email "newuser@sample.app" , password "password" , name "name" , lastname "lastname" and dni "1234567A"
     Then The response code is 400
-    And The error message is "dni length must be 9"
+    And The error message is "length must be between 9 and 9"
     And It has not been created a user with username "newuser"
 
   Scenario: Register user with an existing email
