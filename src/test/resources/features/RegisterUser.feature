@@ -15,9 +15,9 @@ Feature: Register User
     And I can login with username "newuser" and password "password"
 
   Scenario: Register existing username
-    Given There is a registered user with username "newuser" and password "password" and email "newuser@sample.app"
+    Given There is a registered user with username "newuser" and password "password" and email "newuser@sample.app" and name "name" and lastname "lastname" and dni "12345678A"
     And I login as "admin" with password "password"
-    When I register a new user with username "newuser" , email "newuser@sample.app" , password "password" , name "name" , lastname "lastname" and dni "12345678A"
+    When I register a new user with username "newuser" , email "newuser@sample.app" , password "password" , name "name" , lastname "lastname" and dni "12345678F"
     Then The response code is 409
     And I cannot login with username "newuser" and password "newpassword"
 
@@ -56,7 +56,7 @@ Feature: Register User
     And It has not been created a user with username "newuser"
 
   Scenario: Register user with an existing email
-    Given There is a registered user with username "newuser" and password "password" and email "newuser@sample.app" and dni "12345678A"
+    Given There is a registered user with username "newuser" and password "password" and email "newuser@sample.app" and name "name" and lastname "lastname" and dni "12345678A"
     And I login as "admin" with password "password"
     When I register a new user with username "newuser2" , email "newuser@sample.app" , password "password2" , name "name" , lastname "lastname" and dni "12345679A"
     Then The response code is 409
@@ -98,7 +98,7 @@ Feature: Register User
     And It has not been created a user with username "newuser"
 
   Scenario: Register user with an existing email
-    Given There is a registered user with username "newuser" and password "password" and email "newuser@sample.app" and dni "12345678A"
+    Given There is a registered user with username "newuser" and password "password" and email "newuser@sample.app" and name "name" and lastname "lastname" and dni "12345678A"
     And I login as "admin" with password "password"
     When I register a new user with username "newuser2" , email "newuser2@sample.app" , password "password2" , name "name" , lastname "lastname" and dni "12345678A"
     Then The response code is 409
