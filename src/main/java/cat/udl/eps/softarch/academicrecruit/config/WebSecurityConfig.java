@@ -30,9 +30,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/users/*").denyAll()
 
-                .antMatchers(HttpMethod.POST, "/jobapplication").authenticated()
-                .antMatchers(HttpMethod.GET, "/jobapplication/*").authenticated()
-                .antMatchers(HttpMethod.POST, "/jobapplication/*").denyAll()
+                .antMatchers(HttpMethod.POST, "/jobApplications").authenticated()
+                .antMatchers(HttpMethod.GET, "/jobApplications/*").authenticated()
+                .antMatchers(HttpMethod.POST, "/jobApplications/*").denyAll()
 
 
                 .antMatchers(HttpMethod.POST, "/**/*").authenticated()
