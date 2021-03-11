@@ -41,12 +41,12 @@ public class QualificationsStepsDefs {
     }
 
     @And("I can check that the mark {int} is correct")
-    public void iCanCheckThatTheMarkIsCorrect() {
+    public void iCanCheckThatTheMarkIsCorrect(int mark) {
 
     }
 
     @And("I can check that the observation {string} is correct")
-    public void iCanCheckThatTheObservationIsCorrect() {
+    public void iCanCheckThatTheObservationIsCorrect(String observation) {
 
     }
 }

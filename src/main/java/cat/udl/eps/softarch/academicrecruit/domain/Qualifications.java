@@ -18,13 +18,11 @@ public class Qualifications extends UriEntity<Long>{
 
     @Id
     private Long id;
-    
+
     @NotBlank
     @Min(0)
     @Max(10)
     private Float mark;
 
     private String observation;
-
-    
 }
