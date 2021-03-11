@@ -4,7 +4,7 @@ Feature: Job Application
   I want to create a job applciation
 
   Background:
-    Given There is a registered secretary with username "secretary" and password "password" and email "secretary@sample.app"
+    Given There is a registered user with username "secretary" and password "password" and email "email@gmail.com" and name "name" and lastname "lastname" and dni "12345678B"
 
   Scenario: Publish a new job application
     Given I login as "secretary" with password "password"
