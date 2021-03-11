@@ -7,9 +7,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Cleanup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +28,9 @@ public class User extends UriEntity<String> implements UserDetails {
 
     public static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+
     @Id
+    @Column(unique = true)
     private String username;
 
     @NotBlank
@@ -38,6 +42,17 @@ public class User extends UriEntity<String> implements UserDetails {
     @NotBlank
     @Length(min = 8, max = 256)
     private String password;
+
+    @NotBlank
+    private String name;
+
+    @NotBlank
+    private String lastname;
+
+    @NotBlank
+    @Column(unique = true)
+    @Length(min = 9, max = 9)
+    private String dni;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean passwordReset;

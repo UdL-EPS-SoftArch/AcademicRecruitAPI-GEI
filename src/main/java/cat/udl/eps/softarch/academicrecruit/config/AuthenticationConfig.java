@@ -36,6 +36,9 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
       admin.setEmail("admin@sample.app");
       admin.setUsername("admin");
       admin.setPassword(defaultPassword);
+      admin.setName("name");
+      admin.setLastname("lastname");
+      admin.setDni("12345676A");
       admin.encodePassword();
       userRepository.save(admin);
     }
@@ -46,6 +49,9 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
       user.setEmail("user@sample.app");
       user.setUsername("user");
       user.setPassword(defaultPassword);
+      user.setName("name");
+      user.setLastname("lastname");
+      user.setDni("12345677A");
       user.encodePassword();
       userRepository.save(user);
     }
