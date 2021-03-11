@@ -34,6 +34,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/jobApplications/*").authenticated()
                 .antMatchers(HttpMethod.POST, "/jobApplications/*").denyAll()
 
+                .antMatchers(HttpMethod.POST, "/phases").authenticated()
+                .antMatchers(HttpMethod.GET, "/phases/*").authenticated()
+                .antMatchers(HttpMethod.POST, "/phases/*").denyAll()
+
 
                 .antMatchers(HttpMethod.POST, "/**/*").authenticated()
                 .antMatchers(HttpMethod.PUT, "/**/*").authenticated()

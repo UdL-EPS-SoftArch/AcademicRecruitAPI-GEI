@@ -13,10 +13,12 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Phase extends UriEntity<Long>{
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
 
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer phaseNumber;
     private String name;
     private Date initialDate;
