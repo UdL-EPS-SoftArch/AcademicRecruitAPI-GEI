@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Applicants extends UriEntity<Long> {
+public class Applicant extends UriEntity<Long> {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
