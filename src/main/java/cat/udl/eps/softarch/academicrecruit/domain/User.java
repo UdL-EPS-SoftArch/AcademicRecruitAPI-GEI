@@ -43,10 +43,13 @@ public class User extends UriEntity<String> implements UserDetails {
     @Length(min = 8, max = 256)
     private String password;
 
+    @NotBlank
     private String name;
 
+    @NotBlank
     private String lastname;
 
+    @NotBlank
     @Column(unique = true)
     @Length(min = 9, max = 9)
     private String dni;

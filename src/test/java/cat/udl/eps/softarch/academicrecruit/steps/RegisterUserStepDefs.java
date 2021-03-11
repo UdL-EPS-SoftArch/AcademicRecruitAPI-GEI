@@ -133,7 +133,8 @@ public class RegisterUserStepDefs {
             .andDo(print());
   }
 
-  @And("It has been created a user with username \"([^\"]*)\" , email \"([^\"]*)\" , name \"([^\"]*)\" , lastname \"([^\"]*)\" and dni \"([^\"]*)\" , the password is not returned")
+  //@And("It has been created a user with username \"([^\"]*)\" , email \"([^\"]*)\" , name \"([^\"]*)\" , lastname \"([^\"]*)\" and dni \"([^\"]*)\" , the password is not returned")
+  @And("It has been created a user with username {string} , email {string} , name {string} , lastname {string} and dni {string} , the password is not returned")
   public void itHasBeenCreatedAUserWithUsernameEmailNameLastnameAndDniThePasswordIsNotReturned(String username, String email, String name, String lastname, String dni) throws Throwable {
     stepDefs.result = stepDefs.mockMvc.perform(
             get("/users/{username}", username)
@@ -147,14 +148,16 @@ public class RegisterUserStepDefs {
             .andExpect(jsonPath("$.password").doesNotExist());
   }
 
-  @Given("There is a registered user with username \"([^\"]*)\" and password \"([^\"]*)\" and email \"([^\"]*)\" and dni \"([^\"]*)\"")
-  public void thereIsARegisteredUserWithUsernameAndPasswordAndEmailAndDni(String username, String password, String email, String dni) {
+  @Given("There is a registered user with username {string} and password {string} and email {string} and name {string} and lastname {string} and dni {string}")
+  public void thereIsARegisteredUserWithUsernameAndPasswordAndEmailAndNameAndLastnameAndDni(String username, String password, String email, String name, String lastname, String dni) {
     if (!userRepository.existsById(username)) {
       User user = new User();
       user.setEmail(email);
       user.setUsername(username);
       user.setPassword(password);
       user.encodePassword();
+      user.setName(name);
+      user.setLastname(lastname);
       user.setDni(dni);
       userRepository.save(user);
     }
