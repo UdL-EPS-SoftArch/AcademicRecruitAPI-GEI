@@ -41,6 +41,15 @@ public class ApplicantsStepsDefs {
     }
 
     @And("It has been created a new applicant with email {string}, name {string}, lastname {string} and dni {string}")
-    public void itHasBeenCreatedANewApplicantWithEmailNameLastnameAndDni(String arg0, String arg1, String arg2, String arg3) {
+    public void itHasBeenCreatedANewApplicantWithEmailNameLastnameAndDni(String email, String name, String lastname, String dni) throws Exception {
+        stepDefs.result = stepDefs.mockMvc.perform(
+                get("/applicants/1")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .with(AuthenticationStepDefs.authenticate()))
+                .andDo(print())
+                .andExpect(jsonPath("$.email", is(email)))
+                .andExpect(jsonPath("$.name", is(name)))
+                .andExpect(jsonPath("$.lastname", is(lastname)))
+                .andExpect(jsonPath("$.dni", is(dni)));
     }
 }
