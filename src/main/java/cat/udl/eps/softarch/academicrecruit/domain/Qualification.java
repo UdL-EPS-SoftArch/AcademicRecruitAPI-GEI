@@ -17,7 +17,6 @@ public class Qualification extends UriEntity<Long>{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
-    @NotBlank
     @Min(0)
     @Max(10)
     private Float mark;
