@@ -16,5 +16,5 @@ Feature: Job Application
     Given I'm not logged in
     When I register a new job application name "jobApplication2", requirements "requirement1, requirement2" and description "description2"
     Then The response code is 401
-    And It has not been created a user with name "jobApplication2"
+    And It has not been created a user with name "jobApplication2" and description "description2"
 

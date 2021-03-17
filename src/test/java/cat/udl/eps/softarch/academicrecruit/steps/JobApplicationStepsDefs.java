@@ -49,18 +49,24 @@ public class JobApplicationStepsDefs {
 
     @And("It has been created a new job application with name {string}, requirements {string} and description {string}")
     public void itHasBeenCreatedANewJobApplicationWithNameRequirementsAndDescription(String name, String requirements, String description) throws Exception {
-        List<JobApplication> applicantList = jobApplicationRepository.findByNameContaining(name);
+        List<JobApplication> applicantList = jobApplicationRepository.findByNameContainingAndDescriptionContaining(name, description);
+        List<String> requirementsList = Arrays.asList(requirements.split(","));
 
         stepDefs.result = stepDefs.mockMvc.perform(
                 get("/jobApplications/{id}", applicantList.get(0).getId())
                         .accept(MediaType.APPLICATION_JSON)
                         .with(AuthenticationStepDefs.authenticate()))
-                .andDo(print());
+
+                .andDo(print())
+                .andExpect(jsonPath("$.name", is(name)))
+                .andExpect(jsonPath("$.requirements", is(requirementsList)))
+                .andExpect(jsonPath("$.description", is(description)))
+        ;
     }
 
-    @And("It has not been created a user with name {string}")
-    public void itHasNotBeenCreatedAUserWithName(String name) {
-        List<JobApplication> applicantList = jobApplicationRepository.findByNameContaining(name);
+    @And("It has not been created a user with name {string} and description {string}")
+    public void itHasNotBeenCreatedAUserWithName(String name, String description) {
+        List<JobApplication> applicantList = jobApplicationRepository.findByNameContainingAndDescriptionContaining(name, description);
 
         Assert.assertEquals(0, applicantList.size());
     }

@@ -10,6 +10,7 @@ import java.util.List;
 
 @RepositoryRestResource
 public interface JobApplicationRepository  extends PagingAndSortingRepository<JobApplication, Long> {
-    List<JobApplication> findByNameContaining(@Param("text") String text);
+    List<JobApplication> findByNameContainingAndDescriptionContaining(@Param("name") String name,
+                                                                      @Param("description") String description);
 
 }
