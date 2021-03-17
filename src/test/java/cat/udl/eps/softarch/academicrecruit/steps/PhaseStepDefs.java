@@ -53,10 +53,11 @@ public class PhaseStepDefs {
                 .andDo(print());
     }
 
-    @And("It has been created a new phase with id {long} number {int} name {string}, initialDate {string} and finishDate {string}")
-    public void itHasBeenCreatedANewPhaseWithNumberNameInitialDateAndFinishDate(Long id, int number, String name, String initialDate, String finalDate) throws  Exception {
+    @And("It has been created a new phase with number {int} name {string}, initialDate {string} and finishDate {string}")
+    public void itHasBeenCreatedANewPhaseWithNumberNameInitialDateAndFinishDate(int number, String name, String initialDate, String finalDate) throws  Exception {
+        List<Phase> phases = phaseRepository.findByNameContaining(name);
         stepDefs.result = stepDefs.mockMvc.perform(
-                get("/phases/{phases}", id)
+                get("/phases/{phases}", phases.get(0).getId())
                         .accept(MediaType.APPLICATION_JSON)
                         .with(AuthenticationStepDefs.authenticate()))
                 .andDo(print())
@@ -65,10 +66,6 @@ public class PhaseStepDefs {
                 .andExpect(jsonPath("$.initialDate").exists())
                 .andExpect(jsonPath("$.finalDate").exists())
         ;
-    }
-
-    @And("I can check the phase")
-    public void iCanCheckThePhase() {
     }
 
     @And("It phase with name {string} has not been created.")

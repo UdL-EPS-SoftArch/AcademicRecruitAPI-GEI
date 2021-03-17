@@ -11,12 +11,10 @@ Feature: Phase
     And I register a new job application name "jobApplication1", requirements "requirement1, requirement2" and description "description1"
     When I create a new phase with name "name1", initialDate "07/02/2021" and finishDate "07/06/2021"
     Then The response code is 201
-    And It has been created a new phase with id 2 number 1 name "name1", initialDate "07/02/2021" and finishDate "07/06/2021"
-    And I can check the phase
+    And It has been created a new phase with number 1 name "name1", initialDate "07/02/2021" and finishDate "07/06/2021"
 
   Scenario: Create a new phase on jobApplication1 without login
     When I create a new phase with name "name2", initialDate "07/02/2021" and finishDate "07/06/2021"
     Then The response code is 401
     And It phase with name "name2" has not been created.
-    And I can check the phase
 
