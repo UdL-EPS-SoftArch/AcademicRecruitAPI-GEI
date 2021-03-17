@@ -1,5 +1,6 @@
 package cat.udl.eps.softarch.academicrecruit.steps;
 
+import cat.udl.eps.softarch.academicrecruit.domain.Applicant;
 import cat.udl.eps.softarch.academicrecruit.domain.JobApplication;
 import cat.udl.eps.softarch.academicrecruit.domain.User;
 import cat.udl.eps.softarch.academicrecruit.repository.AdminRepository;
@@ -8,6 +9,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.springframework.http.MediaType;
 
 import java.util.Arrays;
@@ -46,14 +48,20 @@ public class JobApplicationStepsDefs {
     }
 
     @And("It has been created a new job application with name {string}, requirements {string} and description {string}")
-    public void itHasBeenCreatedANewJobApplicationWithNameRequirementsAndDescription(String arg0, String arg1, String arg2) {
-    }
+    public void itHasBeenCreatedANewJobApplicationWithNameRequirementsAndDescription(String name, String requirements, String description) throws Exception {
+        List<JobApplication> applicantList = jobApplicationRepository.findByNameContaining(name);
 
-    @And("I can check the job application")
-    public void iCanCheckTheJobApplication() {
+        stepDefs.result = stepDefs.mockMvc.perform(
+                get("/jobApplications/{id}", applicantList.get(0).getId())
+                        .accept(MediaType.APPLICATION_JSON)
+                        .with(AuthenticationStepDefs.authenticate()))
+                .andDo(print());
     }
 
     @And("It has not been created a user with name {string}")
-    public void itHasNotBeenCreatedAUserWithName(String arg0) {
+    public void itHasNotBeenCreatedAUserWithName(String name) {
+        List<JobApplication> applicantList = jobApplicationRepository.findByNameContaining(name);
+
+        Assert.assertEquals(0, applicantList.size());
     }
 }

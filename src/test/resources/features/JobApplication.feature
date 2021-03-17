@@ -11,7 +11,6 @@ Feature: Job Application
     When I register a new job application name "jobApplication1", requirements "requirement1, requirement2" and description "description1"
     Then The response code is 201
     And It has been created a new job application with name "jobApplication1", requirements "requirement1, requirement2" and description "description1"
-    And I can check the job application
 
   Scenario: Publish a new job application without being logged
     Given I'm not logged in
