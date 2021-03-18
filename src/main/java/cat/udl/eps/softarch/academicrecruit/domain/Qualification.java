@@ -13,11 +13,10 @@ import lombok.Value;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Qualifications extends UriEntity<Long>{
+public class Qualification extends UriEntity<Long>{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
-    @NotBlank
     @Min(0)
     @Max(10)
     private Float mark;
