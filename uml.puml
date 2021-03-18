@@ -27,13 +27,13 @@ name: String
 initialDate: DateTime
 finalDate: DateTime
 }
-class Applicants {
+class Applicant {
         email : String
         name : String
         lastname : String
         DNI : String
 }
-class Qualifications {
+class Qualification {
 mark: int
 observation: String
 }
@@ -44,14 +44,14 @@ path: String
 
 User "1" --> "*" Comitee:Belongs >
 
-Qualifications "*" -- "1" Comitee:Evaluate <
+Qualification "*" -- "1" Comitee:Evaluate <
 
 Comitee "5" -- "1" JobApplication:Administrates >
 
 Document "*" --> "*" Phase:Have <
 JobApplication "1" o-- "3" Phase:Have > 
 
-JobApplication "1" o-- "*" Applicants:Have >
-Qualifications "5" -- "1" Applicants:Evaluated by < 
-Document "*" --> "0..1" Applicants:Belongs >
+JobApplication "1" o-- "*" Applicant:Have >
+Qualification "5" -- "1" Applicant:Evaluated by < 
+Document "*" --> "0..1" Applicant:Belongs >
 @enduml
