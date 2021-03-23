@@ -29,13 +29,4 @@ public class JobApplication extends UriEntity<Long> {
     @JoinColumn(name = "phase_id")
     @NotNull
     private Phase currentPhase;
-
-    @OneToMany(mappedBy = "jobApplication")
-    private List<Phase> phases;
-
-    @OneToMany(mappedBy = "jobApplication")
-    private List<Applicant> applicants;
-
-    @OneToMany(mappedBy = "jobApplication")
-    private List<CommitteeMember> committeeMembers;
 }

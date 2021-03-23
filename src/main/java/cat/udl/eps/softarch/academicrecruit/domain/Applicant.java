@@ -36,12 +36,4 @@ public class Applicant extends UriEntity<Long> {
     @ManyToOne
     @JoinColumn(name = "jobApplication_id")
     private JobApplication jobApplication;
-
-
-    @OneToMany(mappedBy = "applicant")
-    private List<Document> documentList;
-
-
-    @OneToMany(mappedBy = "applicant")
-    private List<Qualification> qualificationList;
 }

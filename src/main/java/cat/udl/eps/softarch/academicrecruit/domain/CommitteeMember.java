@@ -21,9 +21,6 @@ public class CommitteeMember extends UriEntity<Long> {
     @JoinColumn(name="username")
     private User user;
 
-    @OneToMany(mappedBy = "committeeMember")
-    private List<Qualification> qualification;
-
     @ManyToOne
     @JoinColumn(name = "jobapplication_id")
     private JobApplication jobApplication;

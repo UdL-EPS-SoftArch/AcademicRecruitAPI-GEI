@@ -53,8 +53,6 @@ public class User extends UriEntity<String> implements UserDetails {
     @Length(min = 9, max = 9)
     private String dni;
 
-    @OneToMany(mappedBy = "user")
-    private List<CommitteeMember> committeeMemberList;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean passwordReset;
