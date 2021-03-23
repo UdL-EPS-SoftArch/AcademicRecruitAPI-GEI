@@ -7,11 +7,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import lombok.Cleanup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "AcademicRecruitUser") //Avoid collision with system table User in Postgres
@@ -53,6 +52,9 @@ public class User extends UriEntity<String> implements UserDetails {
     @Column(unique = true)
     @Length(min = 9, max = 9)
     private String dni;
+
+    @OneToMany(mappedBy = "user")
+    private List<CommitteeMember> committeeMemberList;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean passwordReset;

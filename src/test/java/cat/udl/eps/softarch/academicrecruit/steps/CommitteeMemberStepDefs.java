@@ -1,10 +1,8 @@
 package cat.udl.eps.softarch.academicrecruit.steps;
 
-import cat.udl.eps.softarch.academicrecruit.domain.Committee;
+import cat.udl.eps.softarch.academicrecruit.domain.CommitteeMember;
 import cat.udl.eps.softarch.academicrecruit.repository.AdminRepository;
-import cat.udl.eps.softarch.academicrecruit.repository.ApplicantRepository;
-import cat.udl.eps.softarch.academicrecruit.repository.CommitteeRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import cat.udl.eps.softarch.academicrecruit.repository.CommitteeMemberRepository;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.json.JSONObject;
@@ -16,24 +14,24 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-public class CommitteeStepDefs {
+public class CommitteeMemberStepDefs {
     final StepDefs stepDefs;
-    final CommitteeRepository committeeRepository;
+    final CommitteeMemberRepository committeeMemberRepository;
 
-    CommitteeStepDefs(StepDefs stepDefs, CommitteeRepository committeeRepository, AdminRepository adminRepository) {
+    CommitteeMemberStepDefs(StepDefs stepDefs, CommitteeMemberRepository committeeMemberRepository, AdminRepository adminRepository) {
         this.stepDefs = stepDefs;
-        this.committeeRepository = committeeRepository;
+        this.committeeMemberRepository = committeeMemberRepository;
     }
 
     @When("I assign a rank {string} to a user")
     public void iAssignARankToAUser(String rank) throws Exception {
-        Committee committee = new Committee();
-        committee.setRank(rank);
+        CommitteeMember committeeMember = new CommitteeMember();
+        committeeMember.setRank(rank);
 
         stepDefs.result = stepDefs.mockMvc.perform(
                 post("/committees")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new JSONObject(stepDefs.mapper.writeValueAsString(committee)).toString())
+                        .content(new JSONObject(stepDefs.mapper.writeValueAsString(committeeMember)).toString())
                         .accept(MediaType.APPLICATION_JSON)
                         .with(AuthenticationStepDefs.authenticate()))
                 .andDo(print());

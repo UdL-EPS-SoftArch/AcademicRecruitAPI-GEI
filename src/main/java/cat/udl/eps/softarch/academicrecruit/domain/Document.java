@@ -18,4 +18,12 @@ public class Document extends UriEntity<Long> {
     private String name;
 
 
+    @ManyToMany(mappedBy = "documentList")
+    private List<Phase> phaseList;
+
+    @ManyToOne
+    @JoinColumn(name = "applicant_id")
+    private Applicant applicant;
+
+
 }

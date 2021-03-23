@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,14 +16,26 @@ public class JobApplication extends UriEntity<Long> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
+
+    @NotBlank
     private String name;
     private String description;
     @ElementCollection
     private List<String> requirements = new ArrayList<>();
     @ElementCollection
     private List<String> evaluationCriteria = new ArrayList<>();
-    //private Phase currentPhase;
-    //private List<Phase> pases;
-    //private List<Applicants> applicants;
-    //private List<Committee> committees;
+
+    @OneToOne
+    @JoinColumn(name = "phase_id")
+    @NotNull
+    private Phase currentPhase;
+
+    @OneToMany(mappedBy = "jobApplication")
+    private List<Phase> phases;
+
+    @OneToMany(mappedBy = "jobApplication")
+    private List<Applicant> applicants;
+
+    @OneToMany(mappedBy = "jobApplication")
+    private List<CommitteeMember> committeeMembers;
 }

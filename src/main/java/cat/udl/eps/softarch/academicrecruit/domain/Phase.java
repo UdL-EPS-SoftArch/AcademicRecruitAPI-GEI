@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,6 +19,15 @@ public class Phase extends UriEntity<Long>{
     private String name;
     private Date initialDate;
     private Date finalDate;
+
+
+    @ManyToOne
+    @JoinColumn(name = "jobApplication_id")
+    private JobApplication jobApplication;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "phase_document")
+    private List<Document> documentList;
 
 
 }
