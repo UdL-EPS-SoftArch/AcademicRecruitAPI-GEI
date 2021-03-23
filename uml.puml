@@ -7,25 +7,25 @@ class User{
         lastname : String
         DNI : String
 }
-class Comitee{
+class ComiteeMember{
   rank: Enumerable
 }
 
 
 
 class JobApplication {
-name: String
-description: String
-requirements: List<String>
-evaluationCriteria: List<String>
-currentPhase: Phase
+        name: String
+        description: String
+        requirements: List<String>
+        evaluationCriteria: List<String>
+        currentPhase: Phase
 }
 
 class Phase {
-phaseNumber: int
-name: String
-initialDate: DateTime
-finalDate: DateTime
+        phaseNumber: int
+        name: String
+        initialDate: DateTime
+        finalDate: DateTime
 }
 class Applicant {
         email : String
@@ -34,19 +34,19 @@ class Applicant {
         DNI : String
 }
 class Qualification {
-mark: int
-observation: String
+        mark: int
+        observation: String
 }
 class Document {
-name: String
-path: String
+        name: String
+        path: String
 }
 
-User "1" --> "*" Comitee:Belongs >
+User "1" --> "*" ComiteeMember:Belongs >
 
-Qualification "*" -- "1" Comitee:Evaluate <
+Qualification "*" -- "1" ComiteeMember:Evaluate <
 
-Comitee "5" -- "1" JobApplication:Administrates >
+ComiteeMember "5" -- "1" JobApplication:Administrates >
 
 Document "*" --> "*" Phase:Have <
 JobApplication "1" o-- "3" Phase:Have > 
