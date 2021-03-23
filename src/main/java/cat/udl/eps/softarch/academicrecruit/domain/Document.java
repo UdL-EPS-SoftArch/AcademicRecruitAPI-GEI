@@ -18,4 +18,9 @@ public class Document extends UriEntity<Long> {
     private String name;
 
 
+    @ManyToOne
+    @JoinColumn(name = "applicant_id")
+    private Applicant applicant;
+
+
 }

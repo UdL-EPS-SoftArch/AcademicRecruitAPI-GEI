@@ -4,11 +4,11 @@
 
 ## Vision
 
-**For** people **who** are members of a committee.
+**For** people **who** are members of a committeeMember.
 
 **the project** AcademicRecruit **is a** webapp created with Spring and Angular.
 
-**that** allows them manage the process state with the other members of the committee group.
+**that** allows them manage the process state with the other members of the committeeMember group.
 
 **Unlike** existing tools, AcademicRecruit allows to manage many candidatures virtually.
 
@@ -18,10 +18,10 @@
 |             Committee           |                 Secretary                 |
 | --------------------------------| ------------------------------------------|
 |View applications that he belongs|Create a new application                   | 
-|Evaluate the applicants          |Assign members to a application committee  |
+|Evaluate the applicants          |Assign members to a application committeeMember  |
 |Sign application documents       |Assign applicants to a application         |
 |                                 |Push documents to a application            |
-|                                 |Review the committee memebres evaluations  |
+|                                 |Review the committeeMember memebres evaluations  |
 |                                 |Set the evaluation criteria                |
 |                                 |Set the second phase date                  |
 |                                 |Set the current application status         |

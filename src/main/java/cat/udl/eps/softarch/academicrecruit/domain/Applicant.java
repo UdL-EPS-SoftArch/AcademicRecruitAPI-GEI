@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -32,4 +33,7 @@ public class Applicant extends UriEntity<Long> {
     @Length(min = 9, max = 9)
     private String dni;
 
+    @ManyToOne
+    @JoinColumn(name = "jobApplication_id")
+    private JobApplication jobApplication;
 }
