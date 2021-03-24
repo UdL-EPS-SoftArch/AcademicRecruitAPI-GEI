@@ -5,22 +5,21 @@ Feature: CommitteeMember
 
   Background:
     Given There is a registered administrator with username "admin" and password "password" and email "admin@sample.app" and name "name" and lastname "lastname" and dni "12345678A"
-    #Given There is a registered user with username "user" and password "password" and email "newuser@sample.app" and name "name" and lastname "lastname" and dni "12345678A"
 
   Scenario: Assign Secretary Rank
     And I login as "admin" with password "password"
-    When I assign a rank "SECRETARY" to a user
+    When I assign a rank "SECRETARY" to a user with username "user"
     Then The response code is 201
-    And It has been assigned the rank "SECRETARY" to a user
+    And It has been assigned the rank "SECRETARY" to a user with username "user"
 
   Scenario: Assign President Rank
     And I login as "admin" with password "password"
-    When I assign a rank "PRESIDENT" to a user
+    When I assign a rank "PRESIDENT" to a user with username "user"
     Then The response code is 201
-    And It has been assigned the rank "PRESIDENT" to a user
+    And It has been assigned the rank "PRESIDENT" to a user with username "user"
 
   Scenario: Assign Vocal Rank
     And I login as "admin" with password "password"
-    When I assign a rank "VOCAL" to a user
+    When I assign a rank "VOCAL" to a user with username "user"
     Then The response code is 201
-    And It has been assigned the rank "VOCAL" to a user
+    And It has been assigned the rank "VOCAL" to a user with username "user"
