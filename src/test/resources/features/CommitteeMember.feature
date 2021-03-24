@@ -1,10 +1,11 @@
-Feature: Committee
+Feature: CommitteeMember
   In order to assign the ranks
   As an administrator
-  I want to assign ranks to users in the Committee
+  I want to assign ranks to users in the CommitteeMember
 
   Background:
     Given There is a registered administrator with username "admin" and password "password" and email "admin@sample.app" and name "name" and lastname "lastname" and dni "12345678A"
+    #Given There is a registered user with username "user" and password "password" and email "newuser@sample.app" and name "name" and lastname "lastname" and dni "12345678A"
 
   Scenario: Assign Secretary Rank
     And I login as "admin" with password "password"

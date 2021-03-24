@@ -17,7 +17,7 @@ public class JobApplication extends UriEntity<Long> {
     @Id
     private Long id;
 
-    @NotBlank
+    //@NotBlank
     private String name;
     private String description;
     @ElementCollection
@@ -27,6 +27,6 @@ public class JobApplication extends UriEntity<Long> {
 
     @OneToOne
     @JoinColumn(name = "phase_id")
-    @NotNull
+    //@NotNull
     private Phase currentPhase;
 }

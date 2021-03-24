@@ -3,6 +3,7 @@ package cat.udl.eps.softarch.academicrecruit.steps;
 import cat.udl.eps.softarch.academicrecruit.domain.CommitteeMember;
 import cat.udl.eps.softarch.academicrecruit.repository.AdminRepository;
 import cat.udl.eps.softarch.academicrecruit.repository.CommitteeMemberRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.json.JSONObject;
@@ -29,7 +30,7 @@ public class CommitteeMemberStepDefs {
         committeeMember.setRank(rank);
 
         stepDefs.result = stepDefs.mockMvc.perform(
-                post("/committees")
+                post("/committeeMembers")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new JSONObject(stepDefs.mapper.writeValueAsString(committeeMember)).toString())
                         .accept(MediaType.APPLICATION_JSON)
@@ -40,10 +41,24 @@ public class CommitteeMemberStepDefs {
     @And("It has been assigned the rank {string} to a user")
     public void itHasBeenAssignedTheRankToAUser(String rank) throws Exception {
         stepDefs.result = stepDefs.mockMvc.perform(
-                get("/committees/{id}", 1L)
+                get("/committeeMembers/{id}", 1L)
                         .accept(MediaType.APPLICATION_JSON)
                         .with(AuthenticationStepDefs.authenticate()))
                 .andDo(print())
                 .andExpect(jsonPath("$.rank", is(rank)));
+    }
+
+    @When("I assign a rank {string} to a user with username {string}")
+    public void iAssignARankToAUserWithUsername(String rank, String username) throws Exception {
+        CommitteeMember committeeMember = new CommitteeMember();
+        committeeMember.setRank(rank);
+
+        stepDefs.result = stepDefs.mockMvc.perform(
+                post("/committeeMembers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new JSONObject(stepDefs.mapper.writeValueAsString(committeeMember)).toString())
+                        .accept(MediaType.APPLICATION_JSON)
+                        .with(AuthenticationStepDefs.authenticate()))
+                .andDo(print());
     }
 }
