@@ -17,7 +17,7 @@ public class JobApplication extends UriEntity<Long> {
     @Id
     private Long id;
 
-    @NotBlank
+    //@NotBlank
     private String name;
     private String description;
     @ElementCollection
