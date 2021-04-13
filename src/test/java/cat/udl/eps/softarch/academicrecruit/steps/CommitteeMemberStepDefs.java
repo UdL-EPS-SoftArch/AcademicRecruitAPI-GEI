@@ -15,12 +15,14 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 public class CommitteeMemberStepDefs {
     final StepDefs stepDefs;
     final CommitteeMemberRepository committeeMemberRepository;
     final UserRepository userRepository;
+    private String uri;
 
     CommitteeMemberStepDefs(StepDefs stepDefs, CommitteeMemberRepository committeeMemberRepository, UserRepository userRepository, AdminRepository adminRepository) {
         this.stepDefs = stepDefs;
@@ -57,7 +59,6 @@ public class CommitteeMemberStepDefs {
         CommitteeMember committeeMember = new CommitteeMember();
         committeeMember.setRank(rank);
         User user = userRepository.findByUsernameContaining(username).get(0);
-        System.out.println(user);
         committeeMember.setUser(user);
 
         stepDefs.result = stepDefs.mockMvc.perform(
@@ -67,18 +68,20 @@ public class CommitteeMemberStepDefs {
                         .accept(MediaType.APPLICATION_JSON)
                         .with(AuthenticationStepDefs.authenticate()))
                 .andDo(print());
+
+        uri = stepDefs.result.andReturn().getResponse().getHeader("Location");
     }
 
     @And("It has been assigned the rank {string} to a user with username {string}")
     public void itHasBeenAssignedTheRankToAUserWithUsername(String rank, String username) throws Exception {
         stepDefs.result = stepDefs.mockMvc.perform(
-                get("/committeeMembers/{id}", 1L)
+                get(uri)
                         .accept(MediaType.APPLICATION_JSON)
                         .with(AuthenticationStepDefs.authenticate()))
                 .andDo(print())
                 .andExpect(jsonPath("$.rank", is(rank)));
         stepDefs.result = stepDefs.mockMvc.perform(
-                (get("/committeeMembers/1/user")
+                (get(uri + "/user")
                         .accept(MediaType.APPLICATION_JSON)
                         .with(AuthenticationStepDefs.authenticate())))
                 .andDo(print())
