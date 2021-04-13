@@ -19,10 +19,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class QualificationStepsDefs {
+
 	final StepDefs stepDefs;
 	final QualificationRepository qualificationRepository;
 	final CommitteeMemberRepository committeeMemberRepository;
 	final ApplicantRepository applicantRepository;
+	private String newUriResource;
 
 	QualificationStepsDefs(StepDefs stepDefs, QualificationRepository qualificationRepository, CommitteeMemberRepository committeeMemberRepository, ApplicantRepository applicantRepository) {
 		this.stepDefs = stepDefs;
@@ -37,8 +39,6 @@ public class QualificationStepsDefs {
 		qualification.setMark(Float.parseFloat(mark));
 		qualification.setObservation(observation);
 
-		System.out.println(applicantMail);
-
 		qualification.setApplicant(applicantRepository.findByEmailContaining(applicantMail).get(0));
 
 		stepDefs.result = stepDefs.mockMvc.perform(
@@ -48,19 +48,26 @@ public class QualificationStepsDefs {
 						.accept(MediaType.APPLICATION_JSON)
 						.with(AuthenticationStepDefs.authenticate()))
 				.andDo(print());
+		newUriResource = stepDefs.result.andReturn().getResponse().getHeader("Location");
 	}
 
-	@And("I can check that the mark {string} and the observation is {string}")
-	public void i_can_check_that_the_mark_and_observation_is(String mark, String observation) throws Exception {
-		List<Qualification> qualificationList = qualificationRepository.findByObservationContaining(observation);
+	@And("I can check that the mark {string} and the observation is {string} to an applicant with email {string}")
+	public void i_can_check_that_the_mark_and_observation_is_to_an_applicant(String mark, String observation, String applicantMail) throws Exception {
 
 		stepDefs.result = stepDefs.mockMvc.perform(
-				get("/qualifications/{id}", qualificationList.get(0).getId())
+				get(newUriResource)
 						.accept(MediaType.APPLICATION_JSON)
 						.with(AuthenticationStepDefs.authenticate()))
 				.andDo(print())
 				.andExpect(jsonPath("$.mark", is(Double.parseDouble(mark))))
 				.andExpect(jsonPath("$.observation", is(observation)));
+
+		stepDefs.result = stepDefs.mockMvc.perform(
+				get(newUriResource + "/applicant")
+						.accept(MediaType.APPLICATION_JSON)
+						.with(AuthenticationStepDefs.authenticate()))
+				.andDo(print())
+				.andExpect(jsonPath("$.email", is(applicantMail)));
 	}
 
 	@And("The mark with the observation {string} has not been created")
