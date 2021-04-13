@@ -1,5 +1,6 @@
 package cat.udl.eps.softarch.academicrecruit.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
@@ -35,5 +36,6 @@ public class Applicant extends UriEntity<Long> {
 
     @ManyToOne
     @JoinColumn(name = "jobApplication_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private JobApplication jobApplication;
 }

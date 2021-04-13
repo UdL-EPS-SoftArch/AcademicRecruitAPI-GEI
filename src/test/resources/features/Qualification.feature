@@ -8,7 +8,8 @@ Feature: Qualification
 
     Scenario: Qualify an applicant
         Given I login as "secretary" with password "password"
-        When I set a new qualification mark "9.0" and an observation "excelent work"
+        When I register a new applicant with email "applicant@sample.app" and name "name" and lastname "lastname" and dni "12345678C"
+        And I set a new qualification mark "9.0" and an observation "excelent work" to an applicant with email "applicant@sample.app"
         Then The response code is 201
         And I can check that the mark "9.0" and the observation is "excelent work"
 
