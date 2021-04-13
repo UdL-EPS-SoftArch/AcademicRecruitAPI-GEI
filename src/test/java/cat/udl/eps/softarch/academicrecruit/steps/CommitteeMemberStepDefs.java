@@ -77,5 +77,11 @@ public class CommitteeMemberStepDefs {
                         .with(AuthenticationStepDefs.authenticate()))
                 .andDo(print())
                 .andExpect(jsonPath("$.rank", is(rank)));
+        stepDefs.result = stepDefs.mockMvc.perform(
+                (get("/committeeMembers/1/user")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .with(AuthenticationStepDefs.authenticate())))
+                .andDo(print())
+                .andExpect(jsonPath("$.id",is(username)));
     }
 }
