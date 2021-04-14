@@ -5,6 +5,7 @@ Feature: Qualification
 
     Background:
         Given There is a registered user with username "secretary" and password "password" and email "email@gmail.com" and name "name" and lastname "lastname" and dni "12345678B"
+        And I assign a rank "SECRETARY" to a user with username "user"
 
     Scenario: Qualify an applicant
         Given I login as "secretary" with password "password"

@@ -1,9 +1,12 @@
 package cat.udl.eps.softarch.academicrecruit.steps;
 
+import cat.udl.eps.softarch.academicrecruit.domain.CommitteeMember;
 import cat.udl.eps.softarch.academicrecruit.domain.Qualification;
+import cat.udl.eps.softarch.academicrecruit.domain.User;
 import cat.udl.eps.softarch.academicrecruit.repository.ApplicantRepository;
 import cat.udl.eps.softarch.academicrecruit.repository.CommitteeMemberRepository;
 import cat.udl.eps.softarch.academicrecruit.repository.QualificationRepository;
+import cat.udl.eps.softarch.academicrecruit.repository.UserRepository;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.json.JSONObject;
@@ -24,13 +27,16 @@ public class QualificationStepsDefs {
 	final QualificationRepository qualificationRepository;
 	final CommitteeMemberRepository committeeMemberRepository;
 	final ApplicantRepository applicantRepository;
+	final UserRepository userRepository;
 	private String newUriResource;
 
-	QualificationStepsDefs(StepDefs stepDefs, QualificationRepository qualificationRepository, CommitteeMemberRepository committeeMemberRepository, ApplicantRepository applicantRepository) {
+	QualificationStepsDefs(StepDefs stepDefs, QualificationRepository qualificationRepository, CommitteeMemberRepository committeeMemberRepository, ApplicantRepository applicantRepository, UserRepository userRepository) {
 		this.stepDefs = stepDefs;
 		this.qualificationRepository = qualificationRepository;
 		this.committeeMemberRepository = committeeMemberRepository;
 		this.applicantRepository = applicantRepository;
+		this.userRepository = userRepository;
+
 	}
 
 	@When("I set a new qualification mark {string} and an observation {string} to an applicant with email {string}")
