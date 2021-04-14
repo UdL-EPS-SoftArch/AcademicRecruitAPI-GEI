@@ -1,5 +1,6 @@
 package cat.udl.eps.softarch.academicrecruit.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,10 +20,12 @@ public class CommitteeMember extends UriEntity<Long> {
 
     @ManyToOne
     @JoinColumn(name="username")
+    @JsonIdentityReference(alwaysAsId = true)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "jobapplication_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private JobApplication jobApplication;
 
     public void setRank(String role){
