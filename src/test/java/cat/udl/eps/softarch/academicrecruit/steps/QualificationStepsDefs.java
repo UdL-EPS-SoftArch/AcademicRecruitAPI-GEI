@@ -29,6 +29,7 @@ public class QualificationStepsDefs {
 	final ApplicantRepository applicantRepository;
 	final UserRepository userRepository;
 	private String newUriResource;
+	private String CommitteeMemberuri;
 
 	QualificationStepsDefs(StepDefs stepDefs, QualificationRepository qualificationRepository, CommitteeMemberRepository committeeMemberRepository, ApplicantRepository applicantRepository,UserRepository userRepository) {
 		this.stepDefs = stepDefs;
@@ -57,12 +58,18 @@ public class QualificationStepsDefs {
 		newUriResource = stepDefs.result.andReturn().getResponse().getHeader("Location");
 	}
 
-	@When("I create a CommitteeMember with username {string} with rank {string} and assigns a new qualification mark {string} and an observation {string} to an applicant with email {string}")
-	public void i_set_a_new_qualification_mark_and_an_observation_to_an_applicant(String username, String rank, String mark, String observation, String applicantMail) throws Exception {
+	@When("The committeeMember assigns a new qualification mark {string} and an observation {string} to an applicant with email {string}")
+	public void the_committeemember_assigns_a_new_qualification_mark_and_an_observation_to_an_applicant(String mark, String observation, String applicantMail) throws Exception {
+
+		Long cmid = (long) Character.getNumericValue(CommitteeMemberuri.charAt(CommitteeMemberuri.length() - 1));
+
+		CommitteeMember committeeMember = committeeMemberRepository.findById(cmid).get();
 
 		Qualification qualification = new Qualification();
 		qualification.setMark(Float.parseFloat(mark));
 		qualification.setObservation(observation);
+
+		qualification.setCommitteeMember(committeeMember);
 
 		qualification.setApplicant(applicantRepository.findByEmailContaining(applicantMail).get(0));
 
@@ -77,8 +84,8 @@ public class QualificationStepsDefs {
 	}
 
 
-	@And("I can check that the mark {string} and the observation is {string} to an applicant with email {string}")
-	public void i_can_check_that_the_mark_and_observation_is_to_an_applicant(String mark, String observation, String applicantMail) throws Exception {
+	@And("I can check that the mark {string} and the observation is {string} to an applicant with email {string} and the rank of the user is {string}")
+	public void i_can_check_that_the_mark_and_observation_is_to_an_applicant(String mark, String observation, String applicantMail, String rank) throws Exception {
 
 		stepDefs.result = stepDefs.mockMvc.perform(
 				get(newUriResource)
@@ -96,10 +103,11 @@ public class QualificationStepsDefs {
 				.andExpect(jsonPath("$.email", is(applicantMail)));
 
 		stepDefs.result = stepDefs.mockMvc.perform(
-				get(newUriResource + "/committeeMembers")
+				get(newUriResource + "/committeeMember")
 						.accept(MediaType.APPLICATION_JSON)
 						.with(AuthenticationStepDefs.authenticate()))
-				.andDo(print());
+				.andDo(print())
+				.andExpect(jsonPath("$.rank", is(rank)));
 	}
 
 	@And("The mark with the observation {string} has not been created")
@@ -128,6 +136,6 @@ public class QualificationStepsDefs {
 						.with(AuthenticationStepDefs.authenticate()))
 				.andDo(print());
 
-		String CommitteeMemberuri = stepDefs.result.andReturn().getResponse().getHeader("Location");
+		CommitteeMemberuri = stepDefs.result.andReturn().getResponse().getHeader("Location");
 	}
 }
