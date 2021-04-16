@@ -8,13 +8,15 @@ Feature: Document
 
   Scenario: Create a new document on jobApplication1
     Given I login as "secretary" with password "password"
-    And I register a new job application name "jobApplication1", requirements "requirement1, requirement2" and description "description1"
-    When I create a new document with name "doc1", path "C://path"
+    And I register a new applicant with email "applicant@sample.app" and name "name" and lastname "lastname" and dni "12345678C"
+    And I create a new phase with name "phaseExample", initialDate "01/01/2020" and finishDate "31/12/2020"
+    When I create a new document with name "doc1", path "C://path" that belongs to an applicant with email "applicant@sample.app"
     Then The response code is 201
-    And It has been created a new document with name "doc1", path "C://path"
+    And It has been created a new document with name "doc1", path "C://path" that is assigned to phase "phaseExample" and belongs to an applicant with email "applicant@sample.app"
 
 
   Scenario: Create a new document on jobApplication1
-    When I create a new document with name "doc1", path "C://path"
+    Given I'm not logged in
+    When I create a new document with name "doc1", path "C://path" that belongs to an applicant with email "applicant@sample.app"
     Then The response code is 401
     And It has not been created a new document with name "doc1", path "C://path"

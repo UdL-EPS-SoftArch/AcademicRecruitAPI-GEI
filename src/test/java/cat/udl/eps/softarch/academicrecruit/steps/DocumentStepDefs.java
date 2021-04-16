@@ -2,17 +2,11 @@ package cat.udl.eps.softarch.academicrecruit.steps;
 
 import cat.udl.eps.softarch.academicrecruit.domain.*;
 import cat.udl.eps.softarch.academicrecruit.repository.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Assert;
 import org.springframework.http.MediaType;
 
-import javax.print.Doc;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -56,7 +50,7 @@ public class DocumentStepDefs {
         newUriResource = stepDefs.result.andReturn().getResponse().getHeader("Location");
     }
 
-    @When("I have a document with name {string}, path {string} that is assigned to phase {string} and belongs to an applicant with email {string}")
+    @When("It has been created a new document with name {string}, path {string} that is assigned to phase {string} and belongs to an applicant with email {string}")
     public void iHaveADocumentWithASettedPhaseAndBelongsToApplicant(String name, String path, String phase_name, String email) throws Exception {
         List<Document> documentList = documentRepository.findByPathContaining(path);
         Document doc = documentList.get(0);
@@ -111,7 +105,6 @@ public class DocumentStepDefs {
 
     @And("I have a document with name {string}, path {string} that belongs to applicant with email {string} that have a qualification mark {string} with observation {string}")
     public void documentThatBelongsToApplicantHaveQualificationMarkAndObservation(String name, String path, String email, String mark, String observation) throws Exception {
-
         stepDefs.result = stepDefs.mockMvc.perform(
                 get(newUriResource)
                         .accept(MediaType.APPLICATION_JSON)
