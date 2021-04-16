@@ -1,5 +1,6 @@
 package cat.udl.eps.softarch.academicrecruit.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,10 +18,13 @@ public class Document extends UriEntity<Long> {
     private String path;
     private String name;
 
-
     @ManyToOne
     @JoinColumn(name = "applicant_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Applicant applicant;
 
-
+    @ManyToMany
+    @JoinColumn(name = "phase_id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Phase phase;
 }
