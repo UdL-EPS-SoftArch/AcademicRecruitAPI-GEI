@@ -4,11 +4,15 @@ import cat.udl.eps.softarch.academicrecruit.domain.*;
 import cat.udl.eps.softarch.academicrecruit.repository.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
+import org.hamcrest.MatcherAssert;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.springframework.http.MediaType;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -32,12 +36,11 @@ public class DocumentStepDefs {
         this.phaseRepository = phaseRepo;
         this.qualificationRepository = qualRepo;
     }
-    @When("I create a new document with name {string}, path {string} that belongs to an applicant with email {string}")
+    @When("I create a new document with name {string}, path {string} for applicant {string}")
     public void iCreateANewDocumentWithNamePath(String name, String path, String applicantMail) throws Exception {
         Document doc = new Document();
         doc.setName(name);
         doc.setPath(path);
-
         doc.setApplicant(applicantRepository.findByEmailContaining(applicantMail).get(0));
 
         stepDefs.result = stepDefs.mockMvc.perform(
@@ -50,25 +53,27 @@ public class DocumentStepDefs {
         newUriResource = stepDefs.result.andReturn().getResponse().getHeader("Location");
     }
 
-    @When("It has been created a new document with name {string}, path {string} that is assigned to phase {string} and belongs to an applicant with email {string}")
-    public void iHaveADocumentWithASettedPhaseAndBelongsToApplicant(String name, String path, String phase_name, String email) throws Exception {
-        List<Document> documentList = documentRepository.findByPathContaining(path);
-        Document doc = documentList.get(0);
-
-        Phase phase1 = phaseRepository.findByNameContaining(phase_name).get(0);
-        doc.setPhase(phase1);
-
-        doc.setApplicant(applicantRepository.findByEmailContaining(email).get(0));
-
+    @And("I associate the previous document to phase {string}")
+    public void iAssociateThePreviousDocumentToPhase(String phaseName) throws Exception {
+        Phase phase =   phaseRepository.findByNameContaining(phaseName).get(0);
         stepDefs.result = stepDefs.mockMvc.perform(
-                post("/documents")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(new JSONObject(stepDefs.mapper.writeValueAsString(doc)).toString())
+                post(newUriResource + "/phases")
+                        .contentType("text/uri-list")
+                        .content(phase.getUri())
                         .accept(MediaType.APPLICATION_JSON)
                         .with(AuthenticationStepDefs.authenticate()))
                 .andDo(print());
-        newUriResource = stepDefs.result.andReturn().getResponse().getHeader("Location");
+    }
 
+    @Transactional
+    @When("It has been created a new document with name {string}, path {string} that is assigned to phase {string} and belongs to an applicant with email {string}")
+    public void iHaveADocumentWithASetPhaseAndBelongsToApplicant(String name, String path, String phase_name, String email) throws Exception {
+        Document doc = documentRepository.findByNameContaining(name).get(0);
+        Phase phase = phaseRepository.findByNameContaining(phase_name).get(0);
+        Assert.assertEquals(path, doc.getPath());
+        Assert.assertEquals(email, doc.getApplicant().getEmail());
+        MatcherAssert.assertThat(doc.getPhases(), hasItem(phase));
+        Assert.assertEquals(1, doc.getPhases().size());
     }
 
     @And("I have a document with name {string}, path {string} that belongs to applicant with email {string}")
@@ -93,14 +98,9 @@ public class DocumentStepDefs {
     }
 
     @And("It has not been created a new document with name {string}, path {string}")
-    public void itHasNotBeenCreatedANewDocumentWithNamePath(String path) throws Exception {
+    public void itHasNotBeenCreatedANewDocumentWithNamePath(String name, String path) throws Exception {
         List<Document> documentList = documentRepository.findByPathContaining(path);
-
-        stepDefs.result = stepDefs.mockMvc.perform(
-                get("/documents/{id}", documentList.get(0).getId())
-                        .accept(MediaType.APPLICATION_JSON)
-                        .with(AuthenticationStepDefs.authenticate()))
-                .andExpect(status().isNotFound());
+        Assert.assertEquals(0, documentList.size());
     }
 
     @And("I have a document with name {string}, path {string} that belongs to applicant with email {string} that have a qualification mark {string} with observation {string}")
@@ -127,6 +127,6 @@ public class DocumentStepDefs {
                         .with(AuthenticationStepDefs.authenticate()))
                 .andDo(print())
                 .andExpect(jsonPath("$.mark", is(Double.parseDouble(mark))))
-                .andExpect(jsonPath(".observation", is(observation)));
+                .andExpect(jsonPath("$.observation", is(observation)));
     }
 }
