@@ -24,10 +24,4 @@ public class Phase extends UriEntity<Long>{
     @ManyToOne
     @JoinColumn(name = "jobApplication_id")
     private JobApplication jobApplication;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "phase_document")
-    private List<Document> documentList;
-
-
 }
