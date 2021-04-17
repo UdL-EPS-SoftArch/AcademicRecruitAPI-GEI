@@ -26,5 +26,9 @@ public class Document extends UriEntity<Long> {
     @ManyToMany
     @JoinColumn(name = "phase_id")
     @JsonIdentityReference(alwaysAsId = true)
-    private Phase phase;
+    private List<Phase> phases = new ArrayList<>();
+
+    public void addPhase(Phase phase) {
+        this.phases.add(phase);
+    }
 }
