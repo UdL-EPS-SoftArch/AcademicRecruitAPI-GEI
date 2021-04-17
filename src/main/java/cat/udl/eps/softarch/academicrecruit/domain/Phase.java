@@ -22,6 +22,5 @@ public class Phase extends UriEntity<Long>{
 
 
     @ManyToOne
-    @JoinColumn(name = "jobApplication_id")
     private JobApplication jobApplication;
 }

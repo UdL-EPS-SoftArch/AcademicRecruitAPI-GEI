@@ -19,12 +19,10 @@ public class CommitteeMember extends UriEntity<Long> {
     public Rank rank;
 
     @ManyToOne
-    @JoinColumn(name="username")
     @JsonIdentityReference(alwaysAsId = true)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "jobapplication_id")
     @JsonIdentityReference(alwaysAsId = true)
     private JobApplication jobApplication;
 

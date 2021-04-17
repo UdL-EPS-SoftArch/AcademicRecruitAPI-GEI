@@ -19,12 +19,10 @@ public class Document extends UriEntity<Long> {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "applicant_id")
     @JsonIdentityReference(alwaysAsId = true)
     private Applicant applicant;
 
     @ManyToMany
-    @JoinColumn(name = "phase_id")
     @JsonIdentityReference(alwaysAsId = true)
     private List<Phase> phases = new ArrayList<>();
 

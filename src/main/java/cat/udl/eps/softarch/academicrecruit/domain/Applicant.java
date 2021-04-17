@@ -34,6 +34,5 @@ public class Applicant extends UriEntity<Long> {
     private String dni;
 
     @ManyToOne
-    @JoinColumn(name = "jobApplication_id")
     private JobApplication jobApplication;
 }
