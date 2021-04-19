@@ -24,13 +24,9 @@ public class Qualification extends UriEntity<Long> {
 
 	private String observation;
 
-	@ManyToOne
-	@JoinColumn(name = "committeeMember_id")
-	@JsonIdentityReference(alwaysAsId = true)
-	private CommitteeMember committeeMember;
+    @ManyToOne
+    private CommitteeMember committeeMember;
 
-	@ManyToOne
-	@JoinColumn(name = "applicant_id")
-	@JsonIdentityReference(alwaysAsId = true)
-	private Applicant applicant;
+    @ManyToOne
+    private Applicant applicant;
 }

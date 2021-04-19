@@ -35,7 +35,6 @@ public class Applicant extends UriEntity<Long> {
     private String dni;
 
     @ManyToOne
-    @JoinColumn(name = "jobApplication_id")
     @JsonIdentityReference(alwaysAsId = true)
     private JobApplication jobApplication;
 }

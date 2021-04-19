@@ -26,7 +26,6 @@ public class JobApplication extends UriEntity<Long> {
     private List<String> evaluationCriteria = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name = "phase_id")
     //@NotNull
     private Phase currentPhase;
 }
